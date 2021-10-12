@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './MyButton.css'
 
 const MyButton = (props) =>{
-    return <button  className = {props.className}>
-        {props.children}
-    </button>
+    const [value, setValue] = useState('default value')
+    return(<>
+            <div>{value}</div>
+            <button  className = {props.className} onClick={()=>setValue('changeValue')}>
+            {props.children}
+            </button>
+        </>
+    ) 
+    
 }
 
 export default MyButton;

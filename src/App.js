@@ -1,7 +1,7 @@
 import React from "react"
 import MyButton from './components/MyButton/MyButton'
-import MyInput from './HW1/MyInput'
-import Interface from './HW1/Interface'
+import Clock from './components/Clock/Clock'
+import Counter from './components/Counter/Counter'
 
 const buttonArray = ['success', 'primary', 'secondary', 'danger', 'warning']
 
@@ -9,10 +9,11 @@ const App = () => {
   return (
     <div className="App">
       {buttonArray.map((btn)=>
-          <MyButton className={btn}>{btn}</MyButton>
+          <MyButton key={btn} className={btn}>{btn}</MyButton>
       )}
-      <MyInput className = {"full-width"}/>
-      <Interface />
+      
+      <Clock />
+      <Counter />
     </div>
   );
 }
