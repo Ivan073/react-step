@@ -1,0 +1,27 @@
+.full-width{
+    width: 100% !important;
+    display:block !important;
+    margin: 0 auto 1vw !important;
+    height: 3vw !important;
+}
+
+.ninety-width{
+    width: 90% !important;
+    display:block !important;
+    margin: 0 auto 1vw !important;
+    height: 3vw !important;
+}
+
+.half-width{
+    width: 50% !important;
+    display:block !important;
+    margin: 0 auto 1vw !important;
+    height: 3vw !important;
+}
+
+.quarter-width{
+    width: 25% !important;
+    display:block !important;
+    margin: 0 auto 1vw !important;
+    height: 3vw !important;
+}

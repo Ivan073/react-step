@@ -70,3 +70,27 @@
     border: 2px solid black;
     float: left;
 }
+
+.okay{
+    background-color: lightgreen;
+    width: 20vw;
+    height: 8vw;
+    font-size: 2vw;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10vw;
+    border: 2px solid black;
+    float: left;
+}
+
+.cancel{
+    background-color: red;
+    width: 20vw;
+    height: 8vw;
+    font-size: 2vw;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10vw;
+    border: 2px solid black;
+    float: left;
+}

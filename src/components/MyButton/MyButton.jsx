@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import './MyButton.css'
 
 const MyButton = (props) =>{
-    const [value, setValue] = useState('default value')
+    const [value, setValue] = useState('')
     return(<>
-            <div>{value}</div>
-            <button  className = {props.className} onClick={()=>setValue('changeValue')}>
+            <button  className = {props.className} onClick={()=>setValue('clicked')}>
+            {value}
             {props.children}
             </button>
         </>

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import NavBar from "./components/Materialize/NavBar/NavBar"
-
+import Interface from "./HW1/Interface"
+ 
 const App = () => {
   const [showFormUser, setShowFormUser] = useState(false);
   const [users, setUsers] = useState([{
@@ -34,6 +35,7 @@ const App = () => {
   }
   return (
     <div className="App">
+      <Interface />
       <NavBar />
       <div className="container">
         <div className="row m-1">
