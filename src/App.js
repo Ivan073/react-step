@@ -1,14 +1,18 @@
 import React, { useState } from "react"
 import NavBar from "./components/Materialize/NavBar/NavBar"
 import Interface from "./HW1/Interface"
+import UserList from "./components/UserList"
  
 const App = () => {
   const [showFormUser, setShowFormUser] = useState(false);
+  const [nextId, setNextId] = useState(3);
   const [users, setUsers] = useState([{
+    id: 1,
     name: "John",
     phone: '7788'
   },
   {
+    id: 2,
     name: "Alice",
     phone: '2345'
   }]);
@@ -18,31 +22,50 @@ const App = () => {
   const onChange = (e) =>{
     if(e.target.id == "name"){
       setUser({...user, name: e.target.value})
-      console.log(e.target.value);
     }else{
       setUser({...user, phone: e.target.value})
-      console.log(e.target.value);
     }
-
   }
 
   const addUser = () =>{
+    if(user.name =="" && user.phone==''){
+      return 0;
+    }
     setUsers([...users,user]);
     setUser({
+      id: nextId,
+      name: "",
+      phone: ''
+    });
+    console.log(user);
+    console.log(users);
+    setNextId(nextId+1);
+  }
+
+  const removeUser = (id) =>{
+    const confirm = window.confirm("Do you want to delete?");
+    if(confirm){
+      setUsers(users.filter((user)=>user.id != id));
+    }    
+  }
+
+  const clear = ()=>{
+    setUser({
+      id: nextId,
       name: "",
       phone: ''
     });
   }
+
   return (
     <div className="App">
-      <Interface />
       <NavBar />
       <div className="container">
         <div className="row m-1">
           <div className="col s4">
             <a className="waves-effect waves-light btn" onClick={()=>{
               setShowFormUser(!showFormUser)
-            }}>Add user</a>
+            }}>Add user</a> 
           </div>
           <div className="col s8">
             {showFormUser  && <>
@@ -57,33 +80,15 @@ const App = () => {
               <div className="input-field col s6">
                 <i className="material-icons prefix">phone</i>
                 <input id="phone" value={user.phone} type="tel" className="validate" placeholder="Enter Phone" onChange={onChange}/>
-                <a className="waves-effect waves-light right btn m-1">Cancel</a>
+                <a className="waves-effect waves-light right btn m-1"
+                  onClick = {()=>clear()}
+                >Cancel</a>
               </div>
               </>
             }
           </div>
         </div>
-        <table>
-        <thead>
-          <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Delete</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          { users && users.map((user)=>
-            <tr>
-            <td>{user.name}</td>
-            <td>{user.phone}</td>
-            <td>DELETE</td>
-          </tr>
-          )}
-          
-          
-        </tbody>
-      </table>
+        <UserList deleteUser={removeUser} search>{users}</UserList>
             
       </div>
     </div>
