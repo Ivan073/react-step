@@ -1,12 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const UserList = (props) => {
-    console.log(props.deleteUser);
-    const [regExp, setRegExp] = useState("");
+    const [filter, setFilter] = useState(props.children);
     const onChange = (e) =>{
         console.log(e.target.value);
-        setRegExp(e.target.value + /(.+)/); //wrong regExp
+        console.log(
+            props.children.filter(
+                (user)=>user.name.toLowerCase().includes(e.target.value.toLowerCase())
+            )
+        );
+        setFilter(props.children.filter(
+            (user)=>user.name.toLowerCase().includes(e.target.value.toLowerCase())
+        ));
       }
+
+    useEffect(()=>{
+        setFilter(props.children);
+    },[props.children])
+
+    const getSearch = () =>{
+        if(filter){
+            return filter
+        }
+        return props.childred
+    }
+    const userSearch = getSearch();
 
     return (
         <>
@@ -29,14 +47,14 @@ const UserList = (props) => {
                 </thead>
 
                 <tbody>
-                { props.children && props.children.map((user)=>
-                        <tr>
+                { props.children && userSearch.map((user)=>
+                    <tr>
                         <td>{user.name}</td>
                         <td>{user.phone}</td>
                         <td><i className="material-icons" 
                             onClick ={() => {props.deleteUser(user.id)}}
                         >delete</i></td>
-                     </tr>
+                    </tr>
                 )}
                 
                 
