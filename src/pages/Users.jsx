@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import UserList from "../components/UserList"
+import "./PageStyles.css";
  
 const Users = () => {
   const [showFormUser, setShowFormUser] = useState(false);
@@ -58,7 +59,7 @@ const Users = () => {
   return (
     <div className="App">
       
-      <div className="container">
+      <div className="container table">
         <div className="row m-1">
           <div className="col s4">
             <a className="waves-effect waves-light btn" onClick={()=>{
