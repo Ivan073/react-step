@@ -22,7 +22,7 @@ const Devices = (props) => {
 
   return (
     <div className="container table">
-      <label>Browser Select</label>
+      <label>Brand Select</label>
       <select className="browser-default" onChange={onChange}>
         <option value="">
           Choose brand

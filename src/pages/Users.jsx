@@ -1,8 +1,11 @@
 import React, { useState } from "react"
 import UserList from "../components/UserList"
 import "./PageStyles.css";
+import MyModal from "../components/MyModal/MyModal";
+
  
 const Users = () => {
+  const [showModal,setShowModal] = useState(false);
   const [showFormUser, setShowFormUser] = useState(false);
   const [nextId, setNextId] = useState(3);
   const [users, setUsers] = useState([{
@@ -60,36 +63,38 @@ const Users = () => {
     <div className="App">
       
       <div className="container table">
-        <div className="row m-1">
-          <div className="col s4">
-            <a className="waves-effect waves-light btn" onClick={()=>{
-              setShowFormUser(!showFormUser)
-            }}>Add user</a> 
-          </div>
-          <div className="col s8">
-            {showFormUser  && <>
+        
+        <MyModal visible={showModal} setVisible={setShowModal}>
+        <>
               <div className="input-field col s6">
-                <i className="material-icons prefix">account_circle</i>
+                <i className="material-icons prefix non-selectable">account_circle</i>
                 <input id="name" value={user.name} type="text" className="validate" placeholder="Enter Name" onChange={onChange}/>
-                <a className="waves-effect waves-light btn m-1" onClick={()=>{
-                   addUser();
-                }}>Add</a>
+                
               </div>
 
               <div className="input-field col s6">
-                <i className="material-icons prefix">phone</i>
+                <i className="material-icons prefix non-selectable">phone</i>
                 <input id="phone" value={user.phone} type="tel" className="validate" placeholder="Enter Phone" onChange={onChange}/>
+                <a className="waves-effect waves-light btn m-1" onClick={()=>{
+                   addUser();
+                }}>Add</a>
                 <a className="waves-effect waves-light right btn m-1"
                   onClick = {()=>clear()}
                 >Cancel</a>
               </div>
               </>
-            }
+        </MyModal>
+        <div className="row m-1">
+          <div className="col s4">
+            <a className="waves-effect waves-light btn" onClick={()=>{
+              setShowModal(true);
+            }}>Add user</a> 
           </div>
         </div>
         <UserList deleteUser={removeUser} search>{users}</UserList>
             
       </div>
+
     </div>
   );
 }

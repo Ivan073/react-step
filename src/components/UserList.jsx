@@ -34,7 +34,7 @@ const UserList = (props) => {
         <div className="row s12">
           <form className="col s12">
             <div className="input-field col s12">
-              <i className="material-icons prefix">search</i>
+              <i className="material-icons prefix non-selectable">search</i>
               <textarea
                 id="icon_prefix2"
                 className="materialize-textarea"
@@ -49,9 +49,9 @@ const UserList = (props) => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Delete</th>
+            <th className="non-selectable">Name</th>
+            <th className="non-selectable">Phone</th>
+            <th className="non-selectable">Delete</th>
           </tr>
         </thead>
 
@@ -63,7 +63,7 @@ const UserList = (props) => {
                 <td>{user.phone}</td>
                 <td>
                   <i
-                    className="material-icons"
+                    className="material-icons clickable"
                     onClick={() => {
                       props.deleteUser(user.id);
                     }}
