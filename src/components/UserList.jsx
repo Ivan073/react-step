@@ -24,7 +24,7 @@ const UserList = (props) => {
     if (filter) {
       return filter;
     }
-    return props.childred;
+    return props.children;
   };
   const userSearch = getSearch();
 
@@ -50,8 +50,11 @@ const UserList = (props) => {
         <thead>
           <tr>
             <th className="non-selectable">Name</th>
+            <th className="non-selectable">Username</th>
             <th className="non-selectable">Phone</th>
+            <th className="non-selectable">Email</th>
             <th className="non-selectable">Delete</th>
+            
           </tr>
         </thead>
 
@@ -60,7 +63,9 @@ const UserList = (props) => {
             userSearch.map((user) => (
               <tr>
                 <td>{user.name}</td>
+                <td>{user.username}</td>
                 <td>{user.phone}</td>
+                <td>{user.email}</td>
                 <td>
                   <i
                     className="material-icons clickable"

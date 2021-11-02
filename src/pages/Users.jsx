@@ -1,43 +1,53 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import UserList from "../components/UserList"
 import "./PageStyles.css";
 import MyModal from "../components/MyModal/MyModal";
+import axios from 'axios';
 
+import Loader from "react-loader-spinner";
  
 const Users = () => {
+
+  const [loading, setLoading] = useState(true);
+
+  const fetchUsers = async () =>{
+    const users = await axios.get('https://jsonplaceholder.typicode.com/users');
+    setUsers(users.data);
+    setLoading(false);
+    setNextId(users.data.length+1);
+    console.log(users);
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  },[])
   const [showModal,setShowModal] = useState(false);
   const [showFormUser, setShowFormUser] = useState(false);
-  const [nextId, setNextId] = useState(3);
-  const [users, setUsers] = useState([{
-    id: 1,
-    name: "John",
-    phone: '7788'
-  },
-  {
-    id: 2,
-    name: "Alice",
-    phone: '2345'
-  }]);
-
+  const [nextId, setNextId] = useState(0);
+  const [users, setUsers] = useState(null);
   const [user, setUser] = useState({name:'', phone: ''});
 
   const onChange = (e) =>{
     if(e.target.id == "name"){
       setUser({...user, name: e.target.value})
-    }else{
+    }else if(e.target.id == "phone"){
       setUser({...user, phone: e.target.value})
+    }else if(e.target.id == "email" ){
+      setUser({...user, email: e.target.value})
     }
   }
 
   const addUser = () =>{
-    if(user.name =="" && user.phone==''){
+    if(user.name =="" && user.phone=='' && user.email==0){
       return 0;
     }
     setUsers([...users,user]);
     setUser({
       id: nextId,
       name: "",
-      phone: ''
+      username: "",
+      phone: "",
+      email: ""
     });
     console.log(user);
     console.log(users);
@@ -55,7 +65,10 @@ const Users = () => {
     setUser({
       id: nextId,
       name: "",
-      phone: ''
+      username: "",
+      phone: "",
+      email:"",
+     
     });
   }
 
@@ -63,7 +76,6 @@ const Users = () => {
     <div className="App">
       
       <div className="container table">
-        
         <MyModal visible={showModal} setVisible={setShowModal}>
         <>
               <div className="input-field col s6">
@@ -75,6 +87,12 @@ const Users = () => {
               <div className="input-field col s6">
                 <i className="material-icons prefix non-selectable">phone</i>
                 <input id="phone" value={user.phone} type="tel" className="validate" placeholder="Enter Phone" onChange={onChange}/>
+                
+              </div>
+
+              <div className="input-field col s6">
+                <i className="material-icons prefix non-selectable">email</i>
+                <input id="email" value={user.email} type="email" pattern=".+@" className="validate" placeholder="Enter email" onChange={onChange}/>
                 <a className="waves-effect waves-light btn m-1" onClick={()=>{
                    addUser();
                 }}>Add</a>
@@ -82,6 +100,8 @@ const Users = () => {
                   onClick = {()=>clear()}
                 >Cancel</a>
               </div>
+
+              
               </>
         </MyModal>
         <div className="row m-1">
@@ -91,7 +111,18 @@ const Users = () => {
             }}>Add user</a> 
           </div>
         </div>
-        <UserList deleteUser={removeUser} search>{users}</UserList>
+        {loading ?(
+            <Loader
+              className="loader"
+              type="Grid"
+              color="#c9424e"
+              height={100}
+              width={100}
+            />
+        ) : (<UserList deleteUser={removeUser} search>{users}</UserList>
+          )
+        }
+        
             
       </div>
 
