@@ -47,3 +47,28 @@ code {
   margin:10vw auto;
   width:10vw;
 }
+
+.postContainer{
+  border:1px solid black;
+  width:100%;
+}
+
+.postContainer h5{
+  margin-left:1vw;
+}
+
+.invisible{
+  display: none;
+}
+
+.visible{
+  display: block;
+}
+
+.modal-mode{
+  z-index: 1003;
+  opacity: 1;
+  top: 10%;
+  width:35% !important;
+  transform: scaleX(1) scaleY(1);
+}
