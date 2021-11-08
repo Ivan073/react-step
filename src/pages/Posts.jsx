@@ -36,8 +36,12 @@ const Posts = () =>{
         elem.remove();
     }
 
-    const filter = () =>{
-
+    const Filter = (e) =>{
+        setSearchFilter(
+            posts.filter((post) =>
+              post.title.toLowerCase().includes(e.target.value.toLowerCase())
+            )
+          );
     }
 
     return (<div className="postContainerContainer container">
@@ -50,6 +54,7 @@ const Posts = () =>{
                         id="search"
                         className="materialize-textarea"
                         placeholder="Search"
+                        onChange={Filter}
                     ></textarea>
                 </div>
             </form>
