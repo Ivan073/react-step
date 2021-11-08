@@ -76,9 +76,9 @@ const Posts = () =>{
 
                     
                     
-                    <div class="card blue-grey  post darken-1 modal modal-mode" id={"modal"+post.id}>
+                    <div className="card blue-grey  post darken-1 modal modal-mode" id={"modal"+post.id}>
                          <i className="material-icons clickable" onClick={()=>hidePost(post.id)}>close</i>
-                        <div class="card-content white-text">
+                        <div className="card-content white-text">
                             {post.body}
                         </div>
                     </div>

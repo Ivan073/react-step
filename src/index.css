@@ -72,3 +72,34 @@ code {
   width:35% !important;
   transform: scaleX(1) scaleY(1);
 }
+
+.sortIcons{
+  float:left;
+  width:2vw;
+}
+
+.sortIcons i{
+  font-size:3vw;
+  width:2vw;
+  height:2vw;
+  line-height:0;
+}
+
+.small{
+  width:30vw !important;
+  margin-right: 5vw !important;
+}
+
+.photo{
+  float:left;
+  margin:2vw 0 0 0;
+  border:1px solid black;
+  width:12vw;
+  height:16vw;
+}
+
+.inputContainer{
+  margin:2vw 0 0 0;
+  width:40vw;
+  float:right;
+}
