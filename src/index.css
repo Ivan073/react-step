@@ -98,8 +98,21 @@ code {
   height:16vw;
 }
 
-.inputContainer{
+.profileContainer{
   margin:2vw 0 0 0;
   width:40vw;
   float:right;
+}
+
+.hasBorder{
+  border:1px solid black;
+}
+
+.loginContainer{
+  width:40vw;
+  margin: 2vw auto;
+}
+
+.loginContainer input{
+  margin-left: 2vw !important;
 }

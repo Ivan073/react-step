@@ -1,7 +1,15 @@
-import React from "react";
+import React,{useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../../context";
 
 const NavBar = () => {
+  const {isAuth, setIsAuth} = useContext(AuthContext);
+
+  useEffect(() => {
+      let button = document.getElementById("logout");
+      button.classList.toggle("invisible");
+  }, [isAuth])
+
   return (
     <nav>
       <div className="nav-wrapper">
@@ -10,7 +18,7 @@ const NavBar = () => {
         </a>
         <ul id="nav-mobile" className="right">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/users">Users</Link>
@@ -20,6 +28,9 @@ const NavBar = () => {
           </li>
           <li>
             <Link to="/posts">Posts</Link>
+          </li>
+          <li onClick={()=>setIsAuth(false)}  className="clickable" id="logout">
+            <Link to=""><i className="material-icons prefix non-selectable">exit_to_app</i></Link>
           </li>
         </ul>
       </div>
