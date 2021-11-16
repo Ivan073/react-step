@@ -1,19 +1,28 @@
 import React,{useState, useEffect} from "react";
 import axios from 'axios';
-import { filter } from "async";
+import ReactPaginate from "react-paginate"
+
 
 const Posts = () =>{
     const [posts, setPosts] = useState(null);
-    const [searchFilter, setSearchFilter]= useState(null)
+    const [searchFilter, setSearchFilter]= useState(null);
+    const [page, setPage] = useState(1);
+    const limit = 10;
+    const pagecount = 100/limit;
 
-    useEffect(() => {
+    useEffect(()=>{
         fetchPosts();
-    }, [])
+    },[])
 
-    const fetchPosts = async () =>{
-       
-        const getposts = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        console.log(getposts.data);
+    const fetchPosts = async () =>{  
+        console.log("limit:"+limit);
+        console.log("page:"+page);
+        const getposts = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+            params:{
+                _limit:limit,
+                _page:page
+            }
+        });
         setPosts(getposts.data);
         setSearchFilter(getposts.data);
     }
@@ -42,6 +51,11 @@ const Posts = () =>{
               post.title.toLowerCase().includes(e.target.value.toLowerCase())
             )
           );
+    }
+
+    const pageChange = async (page) =>{         //баг задержка страницы
+        setPage(page.selected+1);
+        fetchPosts();
     }
 
     return (<div className="postContainerContainer container">
@@ -88,6 +102,18 @@ const Posts = () =>{
                 </div>              
             ))
          }
+         <ReactPaginate
+            className="pagination"
+            activeClassName="active"
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange = {pageChange}
+            pageRangeDisplayed={5}
+            pageCount={10}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+            pageLinkClassName="clickable"
+        />
     </div>)
 }
 
