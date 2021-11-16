@@ -6,14 +6,21 @@ const NavBar = () => {
   const {isAuth, setIsAuth} = useContext(AuthContext);
 
   useEffect(() => {
+    if(!isAuth){
       let button = document.getElementById("logout");
       button.classList.toggle("invisible");
+    }else{
+      let button = document.getElementById("logout");
+      button.classList.remove("invisible");
+    }
+      
   }, [isAuth])
 
   const logOut = () =>{
     setIsAuth(false);
     localStorage.removeItem('login');
     localStorage.removeItem('pass');
+    localStorage.removeItem('isAuth');
   }
 
   return (

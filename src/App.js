@@ -5,7 +5,7 @@ import AppRoutes from "./components/AppRoutes";
 import AuthContext from "./context";
 
 const App = () => {
-  const[isAuth,setIsAuth] = useState(false);
+  const[isAuth,setIsAuth] = useState(localStorage.getItem('isAuth'));
   const[User1,setUser1] = useState({
     username: "Ivan",
     pass: "123"

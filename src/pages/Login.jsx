@@ -35,6 +35,7 @@ const Login = () =>{
             setIsAuth(true);
             localStorage.setItem('login', User1.username);
             localStorage.setItem('pass', User1.pass);
+            localStorage.setItem('isAuth', true);
         }else{
             setWrongInput(true);
         }

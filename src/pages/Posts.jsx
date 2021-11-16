@@ -1,31 +1,52 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useRef, useEffect} from "react";
 import axios from 'axios';
 import ReactPaginate from "react-paginate"
 
 
 const Posts = () =>{
-    const [posts, setPosts] = useState(null);
+    const [posts, setPosts] = useState([]);
     const [searchFilter, setSearchFilter]= useState(null);
     const [page, setPage] = useState(1);
     const limit = 10;
     const pagecount = 100/limit;
 
+    const trigger = useRef(null);
+    const observer = useRef(null);
+
+    useEffect(()=>{
+        
+        const callback = function(entries, observer) {
+            if(entries[0].isIntersecting){
+                console.log(page); 
+                setPage(page+1);
+                console.log(page); 
+                console.log(observer);
+                console.log(entries);
+            }
+            
+        };
+        observer.current = new IntersectionObserver(callback);
+        observer.current.observe(trigger.current);
+    },[])
   
     useEffect(()=>{
+        console.log("pageEffect page:"+page);
+        trigger.current.innerText="trigger on page "+page;
         fetchPosts();
     },[page])
 
     const fetchPosts = async () =>{  
+        console.log("fetchPage"+page);
         console.log("limit:"+limit);
         console.log("page:"+page);
-        const getposts = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+        const fetchedPosts = await axios.get('https://jsonplaceholder.typicode.com/posts',{
             params:{
                 _limit:limit,
                 _page:page
             }
         });
-        setPosts(getposts.data);
-        setSearchFilter(getposts.data);
+        setPosts([...posts,...fetchedPosts.data]);
+        setSearchFilter([...posts,...fetchedPosts.data]);
     }
 
     const showPost = (id) =>{
@@ -102,6 +123,7 @@ const Posts = () =>{
                 </div>              
             ))
          }
+         <div ref={trigger} className="red accent-4">trigger</div>
          <ReactPaginate
             className="pagination"
             activeClassName="active"
@@ -113,6 +135,8 @@ const Posts = () =>{
             previousLabel="< previous"
             renderOnZeroPageCount={null}
             pageLinkClassName="clickable"
+            previousClassName="clickable"
+            nextClassName="clickable"
         />
     </div>)
 }
