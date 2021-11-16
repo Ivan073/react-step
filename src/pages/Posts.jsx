@@ -10,9 +10,10 @@ const Posts = () =>{
     const limit = 10;
     const pagecount = 100/limit;
 
+  
     useEffect(()=>{
         fetchPosts();
-    },[])
+    },[page])
 
     const fetchPosts = async () =>{  
         console.log("limit:"+limit);
@@ -53,9 +54,8 @@ const Posts = () =>{
           );
     }
 
-    const pageChange = async (page) =>{         //баг задержка страницы
-        setPage(page.selected+1);
-        fetchPosts();
+    const pageChange = async (page) =>{ 
+        setPage(page.selected+1);    
     }
 
     return (<div className="postContainerContainer container">
