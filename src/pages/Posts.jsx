@@ -12,33 +12,31 @@ const Posts = () =>{
 
     const trigger = useRef(null);
     const observer = useRef(null);
+    const [loadData, setLoadData] = useState(true);
 
     useEffect(()=>{
-        
+        if(loadData) return;
+        if(observer.current) observer.current.disconnect();
+        if(page>pagecount)return;
         const callback = function(entries, observer) {
-            if(entries[0].isIntersecting){
-                console.log(page); 
+            if(entries[0].isIntersecting){ 
                 setPage(page+1);
-                console.log(page); 
-                console.log(observer);
-                console.log(entries);
             }
             
         };
+        
         observer.current = new IntersectionObserver(callback);
         observer.current.observe(trigger.current);
-    },[])
+    },[loadData]);
   
     useEffect(()=>{
-        console.log("pageEffect page:"+page);
-        trigger.current.innerText="trigger on page "+page;
+        trigger.current.innerText="End of pages ";
         fetchPosts();
     },[page])
 
-    const fetchPosts = async () =>{  
+    const fetchPosts = async () =>{ 
+        setLoadData(true); 
         console.log("fetchPage"+page);
-        console.log("limit:"+limit);
-        console.log("page:"+page);
         const fetchedPosts = await axios.get('https://jsonplaceholder.typicode.com/posts',{
             params:{
                 _limit:limit,
@@ -47,6 +45,7 @@ const Posts = () =>{
         });
         setPosts([...posts,...fetchedPosts.data]);
         setSearchFilter([...posts,...fetchedPosts.data]);
+        setLoadData(false);
     }
 
     const showPost = (id) =>{
