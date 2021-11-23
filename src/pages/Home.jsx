@@ -1,9 +1,11 @@
 import React,{useState, useEffect} from "react";
+import Card from "../components/react-dnd/Card";
 
 const Home = () =>{
     
     return (<div className="home container">
         <div className="photo">photo</div>
+       
         <div className="profileContainer">
             <input id="firstName" type="text" className="validate small right" placeholder="First name"/>
             <input id="lastName" type="text" className="validate small right" placeholder="Last Name"/>

@@ -5,6 +5,7 @@ import Devices from "../pages/Devices";
 import Posts from "../pages/Posts";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Notes from "../pages/Notes";
 import AuthContext from "../context";
 
 
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/devices" component={Devices} />
       <Route path="/posts" component={Posts} />
       <Route path="/home" component={Home} />
+      <Route path="/notes" component={Notes} />
       <Redirect to="/home" />
     </Switch>
     :

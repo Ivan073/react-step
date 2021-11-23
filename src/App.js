@@ -4,6 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./components/AppRoutes";
 import AuthContext from "./context";
 
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
+
 const App = () => {
   const[isAuth,setIsAuth] = useState(localStorage.getItem('isAuth'));
   const[User1,setUser1] = useState({
@@ -13,13 +16,14 @@ const App = () => {
   
 
   return (
-    <AuthContext.Provider value={{isAuth,setIsAuth,User1}}>
-      <BrowserRouter>
-       <NavBar />
+    <DndProvider backend={HTML5Backend}>  
+      <AuthContext.Provider value={{isAuth,setIsAuth,User1}}>
+        <BrowserRouter>      
+        <NavBar />
         <AppRoutes />
-      </BrowserRouter>
-    </AuthContext.Provider>
-    
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </DndProvider>
   );
 };
 

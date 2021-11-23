@@ -31,6 +31,9 @@ const NavBar = () => {
         </a>
         <ul id="nav-mobile" className="right">
           <li>
+            <Link to="/notes">Notes</Link>
+          </li>
+          <li>
             <Link to="/home">Home</Link>
           </li>
           <li>
