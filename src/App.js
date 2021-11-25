@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>  
-      <AuthContext.Provider value={{isAuth,setIsAuth,User1}}>
+      <AuthContext.Provider value={{isAuth,setIsAuth,User1,curDragId,setCurDragId}}>
         <BrowserRouter>      
         <NavBar />
         <AppRoutes />

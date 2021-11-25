@@ -1,23 +1,22 @@
 import React,{useState, useRef, useEffect} from "react";
-import axios from 'axios';
 import Card from "../components/react-dnd/Card";
 import CardBucket from "../components/react-dnd/CardBucket";
 
 
 const Notes = () =>{
     return  <div className="notesBox">
-        <Card>1</Card>
-        <Card>12</Card>
-        <Card>123</Card>
-        <Card>1234</Card>
-        <Card>12345</Card>
-        <Card>123456</Card>
-        <Card>1234567</Card>
-        <Card>12345678</Card>
-        <Card>123456789</Card>
+        <Card id="1" text="" />
+        <Card id="2" text="" />
+        <Card id="3" text="" />
+        <Card id="4" text="" />
+        <Card id="5" text="" />
+        <Card id="6" text="" />
+        <Card id="7" text="" />
+        <Card id="8" text="" />
+        <Card id="9" text="" />
         <div className="bucketBox">
-            <CardBucket />
-            <CardBucket />
+            <CardBucket id="buck1">Important</CardBucket>
+            <CardBucket id="buck2">Not important</CardBucket>
         </div>
         </div>
 }
