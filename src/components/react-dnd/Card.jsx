@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd'
 import "./Card.css"
 
 function Card({id,text}) {
-  const {curDragId,setCurDragId} = useContext(AuthContext);
+//  const {curDragId,setCurDragId} = useContext(AuthContext);
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
 		// "type" is required. It is used by the "accept" specification of drop targets.
     type: 'BOX',

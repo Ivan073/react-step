@@ -4,8 +4,9 @@ import CardBucket from "../components/react-dnd/CardBucket";
 
 
 const Notes = () =>{
-    return  <div className="notesBox">
-        <Card id="1" text="" />
+    return <></>
+    /*return  <div className="notesBox">
+       <Card id="1" text="" />
         <Card id="2" text="" />
         <Card id="3" text="" />
         <Card id="4" text="" />
@@ -18,7 +19,7 @@ const Notes = () =>{
             <CardBucket id="buck1">Important</CardBucket>
             <CardBucket id="buck2">Not important</CardBucket>
         </div>
-        </div>
+        </div>*/
 }
 
 export default Notes;
