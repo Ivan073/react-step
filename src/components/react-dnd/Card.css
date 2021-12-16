@@ -1,0 +1,13 @@
+.dragable{
+    width:15vw;
+    height:10vw;
+    border:1px solid black;
+    margin:1vw;
+}
+
+.bucket{
+    width:45vw;
+    height:40vw;
+    border:1px solid black;
+    margin:1vw;
+}
