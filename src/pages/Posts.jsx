@@ -74,14 +74,9 @@ const Posts = () =>{
           );
     }
 
-<<<<<<< HEAD
     const pageChange = (page) =>{         //баг задержка страницы
         setPage(page.selected+1);
         fetchPosts();
-=======
-    const pageChange = async (page) =>{ 
-        setPage(page.selected+1);    
->>>>>>> cc507b857235bc59a615a637ed5d7eea02fb524e
     }
 
     return (<div className="postContainerContainer container">

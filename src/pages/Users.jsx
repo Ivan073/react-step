@@ -11,7 +11,7 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () =>{
-    const users = await axios.get('https://localhost:5050/users');
+    const users = await http.get('https://localhost:5050/users');
     setUsers(users.data);
     setLoading(false);
     setNextId(users.data.length+1);
