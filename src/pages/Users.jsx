@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import UserList from "../components/UserList"
 import "./PageStyles.css";
 import MyModal from "../components/MyModal/MyModal";
-import axios from 'axios';
+import http from '../http';
 
 import Loader from "react-loader-spinner";
  
@@ -11,7 +11,7 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () =>{
-    const users = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const users = await http.get('/users');
     setUsers(users.data);
     setLoading(false);
     setNextId(users.data.length+1);
@@ -42,7 +42,16 @@ const Users = () => {
       return 0;
     }
     setUsers([...users,user]);
+   
+
     setUser({
+      id: nextId,
+      name: "",
+      username: "",
+      phone: "",
+      email: ""
+    });
+    const us =  http.post('/users',  {
       id: nextId,
       name: "",
       username: "",

@@ -53,7 +53,7 @@ const Posts = () =>{
           );
     }
 
-    const pageChange = async (page) =>{         //баг задержка страницы
+    const pageChange = (page) =>{         //баг задержка страницы
         setPage(page.selected+1);
         fetchPosts();
     }
