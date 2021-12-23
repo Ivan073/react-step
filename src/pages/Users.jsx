@@ -11,7 +11,7 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () =>{
-    const users = await http.get('https://localhost:5050/users');
+    const users = await http.get('/users');
     setUsers(users.data);
     setLoading(false);
     setNextId(users.data.length+1);
@@ -41,32 +41,24 @@ const Users = () => {
     if(user.name =="" && user.phone=='' && user.email==0){
       return 0;
     }
-    setUsers([...users,user]);
    
-
-    setUser({
-      id: nextId,
-      name: "",
-      username: "",
-      phone: "",
-      email: ""
-    });
-    const us =  http.post('/users',  {
-      id: nextId,
-      name: "",
-      username: "",
-      phone: "",
-      email: ""
-    });
-    console.log(user);
-    console.log(users);
+   
+    setUser({ ...user, id: nextId }); 
+    http.post("/users",{...user, id: nextId}).then((res) => { 
+      console.log(res);
+      setUsers([...users,user]);
+    }).catch((err)=>console.log(err));
     setNextId(nextId+1);
   }
 
   const removeUser = (id) =>{
     const confirm = window.confirm("Do you want to delete?");
     if(confirm){
-      setUsers(users.filter((user)=>user.id != id));
+      http.delete(`/users/${id}`).then((res)=>{
+        console.log(res);
+        setUsers(users.filter((user)=>user.id != id));
+      }).catch((err)=>console.log(err));
+     
     }    
   }
 

@@ -1,22 +1,41 @@
 import React, {useEffect, useState} from 'react'
-import { devices } from "../components/DevicesItem";
+//import { devices } from "../components/DevicesItem";
 import "./PageStyles.css";
+import MyModal from '../components/MyModal/MyModal';
+import http from '../http';
+
+
 const Devices = (props) => {
     const [phones, setPhones] = useState(null);
     const [sortedPhones, setSortedPhones] = useState(null);
     const [curSort, setCurSort] = useState("none");
+    const [showModal, setShowModal] = useState(false);
+    const [devices, setDevices] = useState([]);
+    const [nextId, setNextId] = useState(4);
+    const [device, setDevice] = useState({id:5,name:"", brand:"", desc:"", price:""});
+
+    const fetchDevices = async () =>{
+      console.log("fetch start");
+      const dev = await http.get('/devices');
+      setDevices(dev.data);
+      console.log("fetch end");
+      console.log(dev.data);
+      setPhones(dev.data)
+      setSortedPhones(dev.data);
+      setNextId(devices.length);
+      console.log("Length: "+devices.length);
+    }
 
     useEffect(()=>{
-        setPhones(devices);
-        setSortedPhones(devices);
+      fetchDevices();
     },[])
-
 
     const value = [
         'Apple',
         'Samsung',
         'Huawei',
     ]
+
     const onChange = (e) =>{
         if(e.target.value==""){
           setPhones(devices);
@@ -65,8 +84,80 @@ const Devices = (props) => {
         }
     }
 
+    const addDevice = () =>{
+      if(device.name == "" || device.brand==''){
+        return 0;
+      }
+     
+      setDevice({ ...device, id: nextId }); 
+      http.post("/devices",{...device, id: nextId}).then((res) => {                //неправильный порядок передачи данных в структуре
+        console.log(res);
+        setDevices([...devices,device]);
+        setPhones([...devices,device]);
+      }).catch((err)=>console.log(err));
+      setNextId(nextId+1);
+    }
+
+    const clear = () =>{
+      setDevice({id:1,name:"", brand:"", desc:"", price:""});
+    }
+
+    const setDeviceField = (e)=>{
+      if(e.target.id == "name"){
+        setDevice({...device, name: e.target.value})
+      }else if(e.target.id == "brand"){
+        setDevice({...device, brand: e.target.value})
+      }else if(e.target.id == "desc" ){
+        setDevice({...device, desc: e.target.value})
+      }else if(e.target.id == "price" ){
+        setDevice({...device, price: e.target.value})
+      }
+    }
+
   return (
     <div className="container table">
+      <MyModal visible={showModal} setVisible={setShowModal}>
+        <>
+              <div className="input-field col s6">
+                <i className="material-icons prefix non-selectable">account_circle</i>
+                <input id="name" value={device.name} type="text" className="validate" placeholder="Enter Name" onChange={setDeviceField}/>
+                
+              </div>
+
+              <div className="input-field col s6">
+                <i className="material-icons prefix non-selectable">phone</i>
+                <input id="brand" value={device.brand} type="text" className="validate" placeholder="Enter Brand" onChange={setDeviceField}/>
+                
+              </div>
+
+              <div className="input-field col s6">
+                <i className="material-icons prefix non-selectable">phone</i>
+                <input id="desc" value={device.desc} type="text" className="validate" placeholder="Enter Description" onChange={setDeviceField}/>
+                
+              </div>             
+
+              <div className="input-field col s6">
+                <i className="material-icons prefix non-selectable">email</i>
+                <input id="price" value={device.price} type="text" pattern=".+@" className="validate" placeholder="Enter price" onChange={setDeviceField}/>
+                <a className="waves-effect waves-light btn m-1" onClick={()=>{
+                   addDevice();
+                }}>Add</a>
+                <a className="waves-effect waves-light right btn m-1"
+                  onClick = {()=>clear()}
+                >Cancel</a>
+              </div>
+
+              
+              </>
+        </MyModal>
+        <div className="row m-1">
+          <div className="col s4">
+            <a className="waves-effect waves-light btn" onClick={()=>{
+              setShowModal(true);
+            }}>Add device</a> 
+          </div>
+        </div>
+
       <label>Brand Select</label>
       <select className="browser-default" onChange={onChange}>
         <option value="">
